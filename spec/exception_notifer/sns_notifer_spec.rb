@@ -21,8 +21,8 @@ describe 'SNS Notifer' do
   it 'should compose correct message and subject' do
     @sns.call(fake_exception)
 
-    composed_subject = @sns.compose_subject
-    expect(composed_subject).to eq fake_subject
+    composed_info = @sns.compose_info
+    expect(composed_info).to eq fake_info
 
     composed_message = @sns.compose_message
     expect(composed_message[:backtrace]).not_to be_nil
@@ -38,9 +38,9 @@ describe 'SNS Notifer' do
     }
   end
 
-  def fake_subject
-    subject = " (#{fake_exception.class})"
-    subject << " #{fake_exception.message.inspect}"
+  def fake_info
+    info = " (#{fake_exception.class})"
+    info << " #{fake_exception.message.inspect}"
   end
 
 
