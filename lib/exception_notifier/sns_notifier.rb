@@ -17,10 +17,7 @@ module ExceptionNotifier
     def call(exception, options={})
       return if !active?
 
-
-
       env = options[:env] || {}
-      puts env.inspect
       @options = options
       @exception = exception
       @backtrace = exception.backtrace ? clean_backtrace(exception) : []
@@ -28,10 +25,10 @@ module ExceptionNotifier
       @request = ::ActionDispatch::Request.new(env) if @kontroller
 
       @sns_client.publish({
-          subject: compose_subject,
-          topic_arn: @topic_arn,
-          message: compose_message.to_json
-      })
+                              subject: compose_subject,
+                              topic_arn: @topic_arn,
+                              message: compose_message.to_json
+                          })
     end
 
     def active?
@@ -51,8 +48,8 @@ module ExceptionNotifier
       }
 
       message[:request] = {
-          url:  @request.url,
-          method:  @request.request_method,
+          url: @request.url,
+          method: @request.request_method,
           remote_ip: @request.remote_ip,
           parameters: @request.filtered_parameters.inspect
       } if @request
