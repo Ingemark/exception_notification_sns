@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    exception_notification_sns (0.1.1)
+    exception_notification_sns (0.1.2)
       aws-sdk-v1 (>= 1, < 3)
       exception_notification (= 4.2.1)
 

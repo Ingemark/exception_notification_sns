@@ -25,7 +25,6 @@ module ExceptionNotifier
       @request = ::ActionDispatch::Request.new(env) if @kontroller
 
       @sns_client.publish({
-                              subject: compose_subject,
                               topic_arn: @topic_arn,
                               message: compose_message.to_json
                           })
@@ -35,16 +34,17 @@ module ExceptionNotifier
       !@sns_client.nil? && !@topic_arn.nil?
     end
 
-    def compose_subject
-      subject = @kontroller ? "#{@kontroller.controller_name}##{@kontroller.action_name}" : ''
-      subject << " (#{@exception.class})"
-      subject << " #{@exception.message.inspect}"
+    def compose_info
+      info = @kontroller ? "#{@kontroller.controller_name}##{@kontroller.action_name}" : ''
+      info << " (#{@exception.class})"
+      info << " #{@exception.message.inspect}"
     end
 
     def compose_message
       message = {
+          info: compose_info,
           backtrace: @backtrace.to_s,
-          default: compose_subject
+          default: compose_info
       }
 
       message[:request] = {
