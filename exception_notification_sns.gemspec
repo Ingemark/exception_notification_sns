@@ -16,10 +16,9 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.add_runtime_dependency 'exception_notification', '4.2.1'
-  s.add_runtime_dependency 'aws-sdk-v1', '>= 1'
+  s.add_runtime_dependency 'aws-sdk-v1', '>= 1', '< 3'
 
   s.add_development_dependency 'rails', '>= 4.0.0', '< 6'
-  s.add_development_dependency 'aws-sdk-v1', '1.66'
   s.add_development_dependency 'factory_girl', '4.5'
   s.add_development_dependency 'rspec', '3.4.0'
   s.add_development_dependency 'mocha', '~> 0.13.0'
