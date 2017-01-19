@@ -31,7 +31,7 @@ module ExceptionNotifier
     end
 
     def active?
-      !@sns_client.nil? && !@topic_arn.nil?
+      !@sns_client.nil? && @topic_arn.present?
     end
 
     def compose_info
