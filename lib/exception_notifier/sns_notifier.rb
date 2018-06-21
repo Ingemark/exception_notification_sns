@@ -6,16 +6,19 @@ module ExceptionNotifier
 
     def initialize(options)
       super
+
       access_key_id = options.delete(:access_key_id)
       secret_access_key = options.delete(:secret_access_key)
       region = options.delete(:region)
 
-      @sns_client = AWS::SNS::Client.new(access_key_id: access_key_id, secret_access_key: secret_access_key, region: region)
+      @sns_client = AWS::SNS::Client.new(access_key_id: access_key_id,
+                                         secret_access_key: secret_access_key,
+                                         region: region)
       @topic_arn = options.delete(:topic_arn)
     end
 
-    def call(exception, options={})
-      return if !active?
+    def call(exception, options = {})
+      return unless active?
 
       env = options[:env] || {}
       @options = options
@@ -24,10 +27,7 @@ module ExceptionNotifier
       @kontroller = env['action_controller.instance']
       @request = ::ActionDispatch::Request.new(env) if @kontroller
 
-      @sns_client.publish({
-                              topic_arn: @topic_arn,
-                              message: compose_message.to_json
-                          })
+      @sns_client.publish(topic_arn: @topic_arn, message: compose_message.to_json)
     end
 
     def active?
@@ -42,21 +42,22 @@ module ExceptionNotifier
 
     def compose_message
       message = {
-          info: compose_info,
-          backtrace: @backtrace.to_s,
-          default: compose_info
+        info: compose_info,
+        backtrace: @backtrace.to_s,
+        default: compose_info
       }
-
-      message[:request] = {
-          url: @request.url,
-          method: @request.request_method,
-          remote_ip: @request.remote_ip,
-          parameters: @request.filtered_parameters.inspect
-      } if @request
+      message[:request] = request_data if @request
 
       message
     end
+
+    def request_data
+      {
+        url: @request.url,
+        method: @request.request_method,
+        remote_ip: @request.remote_ip,
+        parameters: @request.filtered_parameters.inspect
+      }
+    end
   end
 end
-
-

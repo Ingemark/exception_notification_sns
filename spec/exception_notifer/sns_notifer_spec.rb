@@ -1,30 +1,29 @@
 require 'spec_helper'
 require 'exception_notifier/sns_notifier'
 
-describe 'SNS Notifer' do
-
-  before(:each) do
-    options = {
-        access_key_id: 'acces_key',
-        secret_access_key: 'secret_access_key',
-        topic_arn: 'topic_arn',
-        region: 'region'
+describe 'SNS Notifier' do
+  let(:options) do
+    {
+      access_key_id: 'acces_key',
+      secret_access_key: 'secret_access_key',
+      topic_arn: 'topic_arn',
+      region: 'region'
     }
-
-    @sns = ExceptionNotifier::SnsNotifier.new(options)
   end
 
+  subject { ExceptionNotifier::SnsNotifier.new(options) }
+
   it 'should send exception notification to sns if properly configured' do
-    @sns.call(fake_exception)
+    subject.call(fake_exception)
   end
 
   it 'should compose correct message and subject' do
-    @sns.call(fake_exception)
+    subject.call(fake_exception)
 
-    composed_info = @sns.compose_info
+    composed_info = subject.compose_info
     expect(composed_info).to eq fake_info
 
-    composed_message = @sns.compose_message
+    composed_message = subject.compose_message
     expect(composed_message[:backtrace]).not_to be_nil
     expect(composed_message[:default]).not_to be_nil
   end
@@ -33,8 +32,8 @@ describe 'SNS Notifer' do
 
   def fake_message
     {
-        backtrace: fake_exception.backtrace.to_s,
-        default: fake_subject
+      backtrace: fake_exception.backtrace.to_s,
+      default: fake_subject
     }
   end
 
@@ -43,14 +42,9 @@ describe 'SNS Notifer' do
     info << " #{fake_exception.message.inspect}"
   end
 
-
   def fake_exception
-    begin
-      5/0
-    rescue Exception => e
-      e
-    end
+    5 / 0
+  rescue StandardError => e
+    e
   end
-
-
 end

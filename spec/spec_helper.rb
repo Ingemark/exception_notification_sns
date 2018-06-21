@@ -1,8 +1,8 @@
 # load lib in LOAD_PATH
-$:<< File.join(File.dirname(__FILE__), '../lib')
+$LOAD_PATH << File.join(File.dirname(__FILE__), '../lib')
 
 # Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+ENV['RAILS_ENV'] = 'test'
 
 require 'rspec'
 
@@ -14,5 +14,4 @@ ExceptionNotifier.testing_mode!
 AWS.stub!
 
 RSpec.configure do |config|
-
 end
