@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'exception_notification_sns'
-  s.version     = '0.1.3'
+  s.version     = '0.1.4'
   s.summary     = 'exception_notification extension for aws sns v1'
   s.description = 'exception_notification_sns gem is used for sending application extensions to aws sns.
                    It extends exception_notification gem, uses aws-sdk-v1 gem to push exception notificatons
@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mocha', '~> 0.13.0'
   s.add_development_dependency 'rails', '>= 4.0.0', '< 6'
   s.add_development_dependency 'rspec', '3.4.0'
-  s.add_development_dependency 'rubocop', '~> 0.52.2'
+  s.add_development_dependency 'rubocop', '~> 0.52'
   s.add_development_dependency 'sqlite3', '1.3.10'
 end

@@ -15,6 +15,7 @@ module ExceptionNotifier
                                          secret_access_key: secret_access_key,
                                          region: region)
       @topic_arn = options.delete(:topic_arn)
+      @subject = options.delete(:subject)
     end
 
     def call(exception, options = {})
@@ -27,7 +28,7 @@ module ExceptionNotifier
       @kontroller = env['action_controller.instance']
       @request = ::ActionDispatch::Request.new(env) if @kontroller
 
-      @sns_client.publish(topic_arn: @topic_arn, message: compose_message.to_json)
+      @sns_client.publish(topic_arn: @topic_arn, message: compose_message.to_json, subject: @subject)
     end
 
     def active?

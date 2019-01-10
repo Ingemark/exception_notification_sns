@@ -7,7 +7,8 @@ describe 'SNS Notifier' do
       access_key_id: 'acces_key',
       secret_access_key: 'secret_access_key',
       topic_arn: 'topic_arn',
-      region: 'region'
+      region: 'region',
+      subject: 'notification_subject'
     }
   end
 
@@ -17,7 +18,7 @@ describe 'SNS Notifier' do
     subject.call(fake_exception)
   end
 
-  it 'should compose correct message and subject' do
+  it 'should compose correct message' do
     subject.call(fake_exception)
 
     composed_info = subject.compose_info

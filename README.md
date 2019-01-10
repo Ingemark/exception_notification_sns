@@ -25,7 +25,8 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
     access_key_id: 'AWS_ACCESS_KEY_ID',
     secret_access_key: 'AWS_SECRET_ACCESS_KEY',
     region: 'AWS_REGION',
-    topic_arn: 'AWS_SNS_TOPIC_ARN'
+    topic_arn: 'AWS_SNS_TOPIC_ARN',
+    subject: 'MESSAGE SUBJECT'
   }
 ```
 
@@ -55,14 +56,16 @@ AWS region
 
 AWS SNS topic arn
 
+##### subject
+
+*String*
+
+Notification subject
+
 ## Extras 
 
 For more information about exception_notification gem on which this gem was built, visit [exception_notification](https://github.com/smartinez87/exception_notification).
 
 ## License
 
-Copyright (c) 2017 Matej Minažek, released under the [MIT license](http://www.opensource.org/licenses/MIT).
-
-
-
-
+Copyright (c) 2019 Matej Minažek, released under the [MIT license](http://www.opensource.org/licenses/MIT).
