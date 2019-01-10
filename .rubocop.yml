@@ -1,0 +1,30 @@
+AllCops:
+ TargetRubyVersion: 2.2.2
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Style/FormatStringToken:
+  EnforcedStyle: template
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  Max: 25
+  ExcludedMethods: ['describe', 'context', 'it', 'shared_examples', 'class_eval', 'post', 'get']
+  Exclude:
+    - config/**/*
+    - config/routes/*
+    - spec/factories/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - config/**/*
