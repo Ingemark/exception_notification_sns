@@ -7,13 +7,14 @@ module ExceptionNotifier
     def initialize(options)
       super
 
-      access_key_id = options.delete(:access_key_id)
-      secret_access_key = options.delete(:secret_access_key)
-      region = options.delete(:region)
+      client_params = {}
+      %i[access_key_id secret_access_key region].each do |key|
+        next unless options[key].present?
 
-      @sns_client = AWS::SNS::Client.new(access_key_id: access_key_id,
-                                         secret_access_key: secret_access_key,
-                                         region: region)
+        client_params[key] = options.delete(key)
+      end
+
+      @sns_client = AWS::SNS::Client.new(client_params)
       @topic_arn = options.delete(:topic_arn)
       @subject = options.delete(:subject)
     end
