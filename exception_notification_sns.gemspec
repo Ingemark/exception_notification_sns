@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'exception_notification_sns'
-  s.version     = '0.1.5'
+  s.version     = '0.2.0'
   s.summary     = 'exception_notification extension for aws sns v1'
   s.description = 'exception_notification_sns gem is used for sending application extensions to aws sns.
                    It extends exception_notification gem, uses aws-sdk-v1 gem to push exception notificatons
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.require_path = 'lib'
 
-  s.add_runtime_dependency 'aws-sdk-sns', '1.13.0'
+  s.add_runtime_dependency 'aws-sdk-sns', '>= 1', '< 2'
   s.add_runtime_dependency 'exception_notification', '4.2.1'
 
   s.add_development_dependency 'factory_girl', '4.5'
