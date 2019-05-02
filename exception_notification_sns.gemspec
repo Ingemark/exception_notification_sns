@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.require_path = 'lib'
 
-  s.add_runtime_dependency 'aws-sdk-v1', '>= 1', '< 3'
+  s.add_runtime_dependency 'aws-sdk-sns', '1.13.0'
   s.add_runtime_dependency 'exception_notification', '4.2.1'
 
   s.add_development_dependency 'factory_girl', '4.5'

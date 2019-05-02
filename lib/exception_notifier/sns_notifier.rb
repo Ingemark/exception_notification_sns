@@ -14,7 +14,7 @@ module ExceptionNotifier
         client_params[key] = options.delete(key)
       end
 
-      @sns_client = AWS::SNS::Client.new(client_params)
+      @sns_client = Aws::SNS::Client.new(client_params)
       @topic_arn = options.delete(:topic_arn)
       @subject = options.delete(:subject)
     end

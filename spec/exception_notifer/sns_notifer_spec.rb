@@ -2,14 +2,25 @@ require 'spec_helper'
 require 'exception_notifier/sns_notifier'
 
 describe 'SNS Notifier' do
-  let(:options) do
+  let(:client_options) do
     {
       access_key_id: 'acces_key',
       secret_access_key: 'secret_access_key',
-      topic_arn: 'topic_arn',
-      region: 'region',
-      subject: 'notification_subject'
+      region: 'region'
     }
+  end
+
+  let(:options) do
+    {
+      topic_arn: 'topic_arn',
+      subject: 'notification_subject'
+    }.merge(client_options)
+  end
+
+  let(:test_options) { {stub_responses: true }.merge(client_options) }
+
+  before do
+    expect(Aws::SNS::Client).to receive(:new).with(client_options).and_return(Aws::SNS::Client.new(test_options))
   end
 
   subject { ExceptionNotifier::SnsNotifier.new(options) }
